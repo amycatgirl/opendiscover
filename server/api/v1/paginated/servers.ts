@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const route = useRoute()
     const pageNumber = parseInt((route.params.page as string)) ?? 0;
     const limit = parseInt((route.params.limit as string)) || 12;
-    const totalPosts = await Server.countDocuments().exec()
+    const totalPosts = await Server.countDocuments().and([{discoverable: true}]).exec()
     let startIndex = pageNumber * limit;
     const endIndex = (pageNumber + 1) * limit;
     let result: PaginationResult = {}
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
         limit: limit,
       };
     }
-    if (endIndex < (await Server.countDocuments().exec())) {
+    if (endIndex < totalPosts) {
       result.next = {
         pageNumber: pageNumber + 1,
         limit: limit,

@@ -1,6 +1,7 @@
 <template>
   <NuxtRouteAnnouncer />
-  <header>
+  <div class="app">
+    <header>
     <div class="wordmark">
       <NuxtLink to="/">OpenDiscover</NuxtLink>
     </div>
@@ -11,17 +12,19 @@
   <main>
     <NuxtPage />
   </main>
+  </div>
 </template>
 
 <style>
-  body {
+  * {
+    box-sizing: border-box;
+  }
+  body, .app {
     margin: 0;
     padding: 0;
 
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
   }
 
   header {
@@ -38,5 +41,4 @@
     font-weight: bold;
     text-decoration: none;
   }
-
 </style>
