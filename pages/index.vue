@@ -35,7 +35,7 @@
 </style>
 <template>
     <div class="hero">
-        <h1>Discover new <span class="servers">servers,</span> <span class="bots">bots</span> and <span
+        <h1>Find new <span class="servers">servers,</span> <span class="bots">bots</span> and <span
                 class="themes">themes</span> with OpenDiscover</h1>
     </div>
     <div class="section servers-popular-among">
