@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   .spotlight {
     display: flex;
     position: relative;

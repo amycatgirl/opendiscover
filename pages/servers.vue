@@ -12,7 +12,7 @@
       <h2>Most recent server:</h2>
       <div class="info">
         <div class="about">
-        <h3>{{ serverRequest.data.at(0).name }}</h3>
+          <h3>{{ serverRequest.data.at(0).name }}</h3>
           <p>{{ serverRequest.data.at(0).description }}</p>
         </div>
         <div class="action">
@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   .spotlight {
     display: flex;
     position: relative;
