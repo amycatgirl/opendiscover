@@ -3,6 +3,7 @@ import mongoose, { type InferRawDocType } from "mongoose";
 const { Schema, model } = mongoose
 
 const serverSchema = new Schema({
+    _id: String,
     name: String,
     description: String,
     icon: {

@@ -1,29 +1,29 @@
 <script lang="js" setup>
-  const { data: serverRequest } = await useFetch("/api/v1/paginated/servers")
+  const { data: botRequest } = await useFetch("/api/v1/paginated/bots")
   const config = useRuntimeConfig()
 </script>
 
 <template>
   <div class="spotlight">
     <div class="background">
-      <img :src="`${config.public.AUTUMN_URL}/banners/${serverRequest.data.at(0).banner?._id}`" />
+      <img :src="`${config.public.AUTUMN_URL}/backgrounds/${botRequest.data.at(0).user.profile.background._id}`"
     </div>
     <div class="content">
-      <h2>Most recent server:</h2>
+      <h2>Most recent bot:</h2>
       <div class="info">
-        <h3>{{ serverRequest.data.at(0).name }}</h3>
-        <p>{{ serverRequest.data.at(0).description  }}</p>
+        <h3>{{ botRequest.data.at(0).user.username }}</h3>
+        <p>{{ botRequest.data.at(0).user.profile.content }}</p>
       </div>
     </div>
   </div>
   <div class="server-list">
-    <div class="server" v-for="server in serverRequest.data">
-      <div class="banner">
-        <img v-if="server.banner" :src="`${config.public.AUTUMN_URL}/banners/${server.banner._id}`" />
-        <h4>{{ server.name }}</h4>
-      </div>
+    <div class="server" v-for="listing in botRequest.data">
       <div class="info">
-        <p>{{ server.description }}</p>
+        <span>{{ listing.user.username}}#{{ listing.user.discriminator }}</span>
+        <p>
+          {{ listing.user.profile?.content }}
+        </p>
+        <span class="in">In {{ listing.serversIn > 0 ? listing.serversIn : "no" }} servers.</span>
       </div>
     </div>
   </div>

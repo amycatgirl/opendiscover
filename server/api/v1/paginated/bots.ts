@@ -1,5 +1,7 @@
 import { useRoute } from "nuxt/app"
-import BotModel, { RawBotDocument } from "~/utils/schemas/Bot"
+import BotModel, { Bot, RawBotDocument } from "~/utils/schemas/Bot"
+import ServerMemberModel from "~/utils/schemas/JoinedServers"
+import UserModel, { User } from "~/utils/schemas/User"
 
 type PaginationInfo = {
   pageNumber: number,
@@ -10,7 +12,7 @@ type PaginationResult = {
   botsInTotal?: number,
   previous?: PaginationInfo,
   next?: PaginationInfo,
-  data?: RawBotDocument,
+  data?: {bot: Bot, user: User, serversIn: number }[],
   rowsPerPage?: number
 }
 
@@ -36,13 +38,37 @@ export default defineEventHandler(async (event) => {
         limit: limit,
       };
     }
-    result.data = await BotModel.find()
+    const botData = await BotModel.find()
       .sort("-_id")
       .and([{public: true}])
       .skip(startIndex)
       .limit(limit)
       .lean();
-    result.rowsPerPage = limit;
+    
+    const userData = await UserModel.find()
+      .sort("-_id")
+      .exists("bot", true)
+      .skip(startIndex)
+      .limit(limit)
+      .lean();
+
+    result.data = []
+    for await (const bot of botData) {
+      const serverCount = await ServerMemberModel.countDocuments({"_id.user": bot._id}).exec() 
+      const relatedUser = userData.find((el) => el._id === bot._id)
+      const {token, ...otherInfo} = bot
+      if (!relatedUser) continue
+
+      result.data.push({
+        bot: otherInfo,
+        user: relatedUser as User,
+        serversIn: serverCount
+      })
+    }
+
+    if (limit) {
+      result.rowsPerPage = limit;
+    }
 
 
     return result

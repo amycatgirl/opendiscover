@@ -42,8 +42,10 @@ export default defineEventHandler(async (event) => {
       .skip(startIndex)
       .limit(limit)
       .lean();
-    result.rowsPerPage = limit;
 
+      if (limit) {
+        result.rowsPerPage = limit;
+      }
 
     return result
   } catch (err) {
