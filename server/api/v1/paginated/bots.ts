@@ -1,5 +1,5 @@
 import { useRoute } from "nuxt/app"
-import ServerModel, { RawServerDocument } from "~/utils/schemas/Server"
+import BotModel, { RawBotDocument } from "~/utils/schemas/Bot"
 
 type PaginationInfo = {
   pageNumber: number,
@@ -10,7 +10,7 @@ type PaginationResult = {
   serversInTotal?: number,
   previous?: PaginationInfo,
   next?: PaginationInfo,
-  data?: RawServerDocument,
+  data?: RawBotDocument,
   rowsPerPage?: number
 }
 
@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     const route = useRoute()
     const pageNumber = parseInt((route.params.page as string)) ?? 0;
     const limit = parseInt((route.params.limit as string)) || 12;
-    const totalPosts = await ServerModel.countDocuments().and([{discoverable: true}]).exec()
+    const totalPosts = await BotModel.countDocuments().and([{discoverable: true}]).exec()
     let startIndex = pageNumber * limit;
     const endIndex = (pageNumber + 1) * limit;
     let result: PaginationResult = {}
@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
         limit: limit,
       };
     }
-    result.data = await ServerModel.find()
+    result.data = await BotModel.find()
       .sort("-_id")
       .and([{discoverable: true}])
       .skip(startIndex)

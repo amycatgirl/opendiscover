@@ -1,6 +1,6 @@
-import Server from "../../utils/schemas/Server"
+import ServerModel from "../../utils/schemas/Server"
 export default defineEventHandler(async (event) => {
-  const server = await Server.findOne({});
+  const server = await ServerModel.findOne({});
 
   return server
 

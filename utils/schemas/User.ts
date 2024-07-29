@@ -2,7 +2,7 @@ import mongoose, { type InferRawDocType } from "mongoose";
 
 const { Schema, model } = mongoose
 
-const serverSchema = new Schema({
+const userSchema = new Schema({
     name: String,
     description: String,
     icon: String,
@@ -12,8 +12,8 @@ const serverSchema = new Schema({
     analytics: Boolean
 })
 
-const ServerModel = model("servers", serverSchema)
-type RawServerDocument = InferRawDocType<typeof serverSchema>
+const UserModel = model("servers", userSchema)
+type RawUserDocument = InferRawDocType<typeof userSchema>
 
-export default ServerModel
-export type { RawServerDocument }
+export default UserModel
+export type { RawUserDocument }
