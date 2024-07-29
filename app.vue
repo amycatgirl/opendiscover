@@ -1,12 +1,17 @@
+<script lang="ts" setup>
+    const config = useRuntimeConfig()
+</script>
+
 <template>
   <NuxtRouteAnnouncer />
   <div class="app">
     <header>
     <div class="wordmark">
-      <NuxtLink to="/">OpenDiscover</NuxtLink>
+      <NuxtLink to="/">{{ config.public.opendiscover.name }}</NuxtLink>
     </div>
     <nav>
       <NuxtLink to="/servers">Servers</NuxtLink>
+      <NuxtLink to="/bots">Bots</NuxtLink>
     </nav>
   </header>
   <main>
@@ -37,8 +42,22 @@
   
   header .wordmark > a {
     font-size: larger;
-    color: white;
+    color: #cba6f7;
     font-weight: bold;
     text-decoration: none;
+  }
+
+  header nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  header nav > a {
+    color: #cdd6f4;
+  }
+
+  body {
+    background-color: #11111b;
+    color: #cdd6f4;
   }
 </style>
