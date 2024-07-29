@@ -12,10 +12,13 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    DB_URI: "mongodb://local.revolt.chat:27017/revolt",
     public: {
       AUTUMN_URL: "http://local.revolt.chat:3000",
-      DB_URI: "mongodb://local.revolt.chat:27017/revolt",
-      CLIENT_URL: "http://local.revolt.chat:5173"
+      CLIENT_URL: "http://local.revolt.chat:5173",
+      opendiscover: {
+        name: "Upryzing OpenDiscover",
+      }
     }
   },
 
