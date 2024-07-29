@@ -1,25 +1,28 @@
 <script lang="js" setup>
-  const { data } = await useFetch("/api/v1/paginated/servers")
+  const { data: serverRequest } = await useFetch("/api/v1/paginated/servers")
+  for (const server of serverRequest  .value.data) {
+    console.log(server)
+  }
   const config = useRuntimeConfig()
 </script>
 
 <template>
   <div class="spotlight">
     <div class="background">
-      <img :src="`${config.public.AUTUMN_URL ?? 'http://local.revolt.chat:3000'}/banners/${data?.at(-1).banner}`" />
+      <img :src="`${config.public.AUTUMN_URL}/banners/${serverRequest.data.at(1).banner?._id}`" />
     </div>
     <div class="content">
       <h2>Most recent server:</h2>
       <div class="info">
-        <h3>{{ data?.at(-1).name }}</h3>
-        <p>{{ data?.at(-1).description  }}</p>
+        <h3>{{ serverRequest.data.at(1).name }}</h3>
+        <p>{{ serverRequest.data.at(1).description  }}</p>
       </div>
     </div>
   </div>
   <div class="server-list">
-    <div class="server" v-for="server in data">
+    <div class="server" v-for="server in serverRequest.data">
       <div class="banner">
-        <img v-if="server.banner" :src="`${config.public.AUTUMN_URL ?? 'http://local.revolt.chat:3000'}/banners/${server.banner}`" />
+        <img v-if="server.banner" :src="`${config.public.AUTUMN_URL}/banners/${server.banner._id}`" />
         <h4>{{ server.name }}</h4>
       </div>
       <div class="info">

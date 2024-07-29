@@ -5,8 +5,14 @@ const { Schema, model } = mongoose
 const serverSchema = new Schema({
     name: String,
     description: String,
-    icon: String,
-    banner: String,
+    icon: {
+        _id: String,
+        tag: String
+    },
+    banner: {
+        _id: String,
+        tag: String
+    },
     flags: String,
     nsfw: Boolean,
     analytics: Boolean

@@ -13,9 +13,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      AUTUMN_URL: "https://local.revolt.chat:3000",
+      AUTUMN_URL: "http://local.revolt.chat:3000",
       DB_URI: "mongodb://local.revolt.chat:27017/revolt",
-      CLIENT_URL: "https://local.revolt.chat:5173"
+      CLIENT_URL: "http://local.revolt.chat:5173"
     }
   },
 

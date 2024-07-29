@@ -8,7 +8,7 @@ const botSchema = new Schema({
     _id: String,
 })
 
-const BotModel = model("servers", botSchema)
+const BotModel = model("bots", botSchema)
 type RawBotDocument = InferRawDocType<typeof botSchema>
 
 export default BotModel

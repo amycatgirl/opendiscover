@@ -16,9 +16,9 @@ type PaginationResult = {
 
 export default defineEventHandler(async (event) => {
   try {
-    const route = useRoute()
-    const pageNumber = parseInt((route.params.page as string)) ?? 0;
-    const limit = parseInt((route.params.limit as string)) || 12;
+    const route = event.context
+    const pageNumber = parseInt((route.params?.page as string)) ?? 0;
+    const limit = parseInt((route.params?.limit as string)) || 12;
     const totalPosts = await ServerModel.countDocuments().and([{discoverable: true}]).exec()
     let startIndex = pageNumber * limit;
     const endIndex = (pageNumber + 1) * limit;

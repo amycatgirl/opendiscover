@@ -7,7 +7,7 @@ type PaginationInfo = {
 }
 
 type PaginationResult = {
-  serversInTotal?: number,
+  botsInTotal?: number,
   previous?: PaginationInfo,
   next?: PaginationInfo,
   data?: RawBotDocument,
@@ -16,14 +16,14 @@ type PaginationResult = {
 
 export default defineEventHandler(async (event) => {
   try {
-    const route = useRoute()
-    const pageNumber = parseInt((route.params.page as string)) ?? 0;
-    const limit = parseInt((route.params.limit as string)) || 12;
-    const totalPosts = await BotModel.countDocuments().and([{discoverable: true}]).exec()
+    const route = event.context
+    const pageNumber = parseInt((route.params?.page as string)) ?? 0;
+    const limit = parseInt((route.params?.limit as string)) ?? 12;
+    const totalPosts = await BotModel.countDocuments().and([{public: true}]).exec()
     let startIndex = pageNumber * limit;
     const endIndex = (pageNumber + 1) * limit;
     let result: PaginationResult = {}
-    result.serversInTotal = totalPosts;
+    result.botsInTotal = totalPosts;
     if (startIndex > 0) {
       result.previous = {
         pageNumber: pageNumber - 1,
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
     }
     result.data = await BotModel.find()
       .sort("-_id")
-      .and([{discoverable: true}])
+      .and([{public: true}])
       .skip(startIndex)
       .limit(limit)
       .lean();
