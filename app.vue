@@ -60,4 +60,16 @@
     background-color: #11111b;
     color: #cdd6f4;
   }
+
+  a.button {
+    display: block;
+    background: #cba6f7;
+    color: #11111b;
+    border: none;
+    border-radius: 9999999px;
+
+    padding: 10px 20px;
+
+    font-weight: 500;
+  }
 </style>

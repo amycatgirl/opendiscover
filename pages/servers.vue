@@ -11,8 +11,13 @@
     <div class="content">
       <h2>Most recent server:</h2>
       <div class="info">
+        <div class="about">
         <h3>{{ serverRequest.data.at(0).name }}</h3>
-        <p>{{ serverRequest.data.at(0).description  }}</p>
+          <p>{{ serverRequest.data.at(0).description }}</p>
+        </div>
+        <div class="action">
+          <NuxtLink class="button">Join</NuxtLink>
+        </div>
       </div>
     </div>
   </div>
@@ -67,7 +72,22 @@
     padding: 0 10px;
   }
 
-  .spotlight > .content > .info :is(p, h3) {
+  .spotlight > .content > .info {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    justify-content: space-between;
+    gap: 5rem;
+    align-items: end;
+  }
+
+  .spotlight > .content > .info .action {
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+
+  .spotlight > .content > .info .about :is(p, h3) {
     text-wrap: pretty;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
