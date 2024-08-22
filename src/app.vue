@@ -21,15 +21,23 @@
 </template>
 
 <style>
+  @font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter-VariableFont_opsz,wght.ttf")
+      format("truetype");
+  }
+
   * {
     box-sizing: border-box;
   }
+
   body, .app {
     margin: 0;
     padding: 0;
 
     display: flex;
     flex-direction: column;
+    font-family: "Inter", sans-serif;
   }
 
   header {

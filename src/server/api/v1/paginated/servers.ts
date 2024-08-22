@@ -50,7 +50,10 @@ export default defineEventHandler(async (event) => {
     return result
   } catch (err) {
     console.error("failed :c")
-  }
+    return {
+	    error: err.message
+  	}
+    }
 })
 
 export type { PaginationResult }
